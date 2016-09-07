@@ -1,17 +1,21 @@
 require 'csv'
+require './lib/attendees.rb'
 
 module EventReporterFormatter
 
   def clean_load(contents)
     # no_nil
     contents.map do |row|
+      if row.nil?
+        row = ""
+      end       
       Attendee.new(row)
       # id = row[0]
       # first_name = row[:first_name]
       # zipcode = clean_zipcode(row[:zipcode])
-         if row == nil
-           row = ""
-         end
+        #  if row == nil
+        #    row = ""
+        #  end
       end
   end
 

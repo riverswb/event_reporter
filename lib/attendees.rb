@@ -1,13 +1,15 @@
+require 'csv'
+
 class Attendee
-  attr_reader :first_name
+  attr_reader :first_name, :last_Name, :Email_Address, :Zipcode
   def initialize(row)
-    if row == nil
-      row = "0"
-    end
-    @first_name = row[:first_Name]
-    @last_name = row[:last_Name]
-    @email = row[:Email_Address]
-    @zip = clean_zipcode(row[:Zipcode])
+    nil.to_s
+    id = row[0]
+    @first_name = row[:first_name]
+    @last_name = row[:last_name]
+    @email = row[:email_address]
+    @zipcode = clean_zipcode(row[:zipcode])
+    @phone = row[:homephone]
 
   end
 

@@ -6,7 +6,7 @@ require './lib/attendees.rb'
 
 require 'pry'
 
-
+Sunlight::Congress.api_key = "8ed8af10edf6473583d8878e183284f5"
 
 class DataFile
 attr_reader :contents, :current_file_path, :default_file, :attendees_repository
@@ -16,7 +16,7 @@ attr_reader :contents, :current_file_path, :default_file, :attendees_repository
   def initialize
     @default_file = "event_attendees_small.csv"
     @queue = []
-    @attendees_repository = []
+    @attendees_repository = {}
     #binding.pry
   end
 
@@ -41,9 +41,9 @@ attr_reader :contents, :current_file_path, :default_file, :attendees_repository
 #    binding.pry
     @contents = CSV.read @current_file_path, headers: true, header_converters: :symbol
 
-#    binding.pry
+    binding.pry
     @attendees_repository = clean_load(@contents)
-#    binding.pry
+    binding.pry
   end
 
 
@@ -74,15 +74,15 @@ attr_reader :contents, :current_file_path, :default_file, :attendees_repository
   end
 
   def find_by(attribute, criteria)
-#    binding.pry
-    @queue = @attendees_repository.map do |attendee|
-#      binding.pry
-      attendee.attribute[criteria]
+    binding.pry
+    @queue = @attendees_repository.find_all { |entry| entry.send(attribute) == criteria }
+      binding.pry
+
       p @queue
-#      binding.pry
-    end
+      binding.pry
+
   end
 end # DataFile class end
-DataFile.new
-clean_load(CSV.open "event_attendees_small.csv", headers: true, header_converters: :symbol)
-p @queue
+# DataFile.new
+# clean_load(CSV.open "event_attendees_small.csv", headers: true, header_converters: :symbol)
+# p @queue

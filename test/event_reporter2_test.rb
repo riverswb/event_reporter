@@ -48,8 +48,9 @@ class DataFileTest < Minitest::Test
 
   def test_can_fill_queue_with_records_mattching_criteria_for_attribute
     df = DataFile.new
-    df.set_path("event_attendees_small.csv")
-    df.find_by(@first_name, "Shannon")
+    df.set_path("event_attendees.csv")
+    df.load_file
+    df.find_by("first_name", "Shannon")
 
     p @queue
   end
